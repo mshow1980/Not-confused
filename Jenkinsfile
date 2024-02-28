@@ -5,7 +5,7 @@ pipeline{
             steps{
             
             script{
-                git branch: 'main', url: 'https://github.com/mshow1980/Not-confused.git'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/Not-confused.git']])
                 }
             }
         }
