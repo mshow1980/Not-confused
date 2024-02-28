@@ -22,7 +22,7 @@ pipeline{
             steps{
 
             script{
-                sh 'mvn clean compile'
+                sh 'mvn clean compile -Dskiptests=true'
                 }
             }
         }
