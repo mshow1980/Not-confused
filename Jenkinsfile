@@ -25,7 +25,7 @@ pipeline{
             steps{
 
             script{
-                sh 'mvn clean install -U -DskipTests=false'
+                sh 'mvn clean install -DskipTests=false'
                 }
             }
         }
