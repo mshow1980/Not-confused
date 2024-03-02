@@ -1,5 +1,8 @@
 pipeline{
     agent any 
+    tools{
+        maven 'maven3'
+    }
     stages{
         stage('Checkout SCM'){
             steps{
@@ -22,7 +25,7 @@ pipeline{
             steps{
 
             script{
-                sh 'mvn clean compile -Dskiptests=true'
+                sh 'mvn clean package'
                 }
             }
         }
@@ -40,13 +43,20 @@ pipeline{
                 }
             }
         }
-        stage('sonarqube scan'){
+        stage('Test Application'){
             steps{
 
             script{
-                withSonarQubeEnv(credentialsId: 'Jenkins-Token') {
-                    sh 'mvn clean package sonar:sonar'
-                    }
+                sh 'mvn test'
+                }
+            }
+        }
+        stage('Sonarqube Analysis'){
+            steps{
+                script{
+                    withSonarQubeEnv(credentialsId: 'Jenkins-Token') {
+                        sh 'mvn sonar:sonar'
+                        }
                 }
             }
         }
